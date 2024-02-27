@@ -1,5 +1,7 @@
 #stage build
-FROM golang:alpine as builder
+FROM golang:1.22-alpine as builder
+
+# RUN addgroup -S mercari && adduser -S trainee -G mercari
 
 RUN apk update && apk add --no-cache gcc musl-dev
 
@@ -7,7 +9,9 @@ WORKDIR /go/src/app
 
 COPY go.mod go.sum ./
 
-RUN go mod download
+# RUN mkdir /db && chown -R trainee:mercari /db
+
+RUN go mod tidy
 
 COPY database /go/src/app/database
 
