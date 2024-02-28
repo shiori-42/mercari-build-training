@@ -3,34 +3,28 @@ FROM golang:alpine as builder
 
 RUN apk update && apk add --no-cache gcc musl-dev
 
-WORKDIR /go/src/app
+WORKDIR /app
 
 COPY go.mod go.sum ./
 
 RUN go mod download
 
-COPY database /go/src/app/database
+COPY app ./app
+COPY database ./database
+COPY images ./images
 
-COPY images /go/src/app/images
-
-COPY app/ .
-
-RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o main .
+RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o main ./app
 
 #stage execute
 FROM alpine:latest
 
-RUN apk update && apk add --no-cache libc6-compat
-
-RUN apk add --no-cache curl
+RUN apk update && apk add --no-cache libc6-compat curl
 
 WORKDIR /root/
 
-COPY --from=builder /go/src/app/main .
-
-COPY --from=builder /go/src/app/database ./database
-
-COPY --from=builder /go/src/app/images ./images
+COPY --from=builder /app/main .
+COPY --from=builder /app/database ./database
+COPY --from=builder /app/images ./images
 
 EXPOSE 9000
 

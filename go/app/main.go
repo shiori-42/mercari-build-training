@@ -22,7 +22,7 @@ import (
 var db *sql.DB
 
 const (
-	ImgDir = "./images"
+	ImgDir = "/root/images"
 )
 
 type Response struct {
