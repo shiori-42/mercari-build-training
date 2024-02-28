@@ -8,15 +8,15 @@ interface Prop {
 
 type formDataType = {
   name: string,
-  category: string,
+  category_id: number,
   image: string | File,
 }
 
 export const Listing: React.FC<Prop> = (props) => {
   const { onListingCompleted } = props;
-  const initialState = {
+  const initialState: formDataType = {
     name: "",
-    category: "",
+    category_id: 0,
     image: "",
   };
   const [values, setValues] = useState<formDataType>(initialState);
@@ -35,7 +35,7 @@ export const Listing: React.FC<Prop> = (props) => {
     event.preventDefault()
     const data = new FormData()
     data.append('name', values.name)
-    data.append('category', values.category)
+    data.append('category_id',values.category_id.toString())
     data.append('image', values.image)
 
     fetch(server.concat('/items'), {
@@ -56,7 +56,7 @@ export const Listing: React.FC<Prop> = (props) => {
       <form onSubmit={onSubmit}>
         <div>
           <input type='text' name='name' id='name' placeholder='name' onChange={onValueChange} required />
-          <input type='text' name='category' id='category' placeholder='category' onChange={onValueChange} />
+          <input type='text' name='category_id' id='category_id' placeholder='category_id' onChange={onValueChange} />
           <input type='file' name='image' id='image' onChange={onFileChange} required />
           <button type='submit'>List this item</button>
         </div>
