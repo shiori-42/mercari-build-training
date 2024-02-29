@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #222427;
 }
 
 .Title {
@@ -24,8 +25,36 @@
   color: white;
 }
 
+#name {
+  width: 600px;
+  height: 80px;
+}
+
+#name::placeholder {
+  font-size: 50px; 
+}
+
+#category_id {
+  width: 300px;
+  height: 80px;
+}
+
+#category_id::placeholder {
+  font-size: 50px; 
+}
+
+#image {
+  width: 100%;
+  height: 80px
+  
+}
+
+#image::placeholder {
+  font-size: 50px; 
+}
+
 .ItemList {
-  background-color: #222427;
+  background-color: #15142c;
   min-height: 8vh;
   display: flex;
   flex-direction: column;
@@ -33,6 +62,23 @@
   justify-content: left;
   font-size: calc(10px + 1vmin);
   color: white;
+  padding: 0%;
+}
+
+.ItemList img{
+  width:100%;
+}
+
+.ItemLists {
+  display: grid;
+  grid-template-columns: 30% 30%;
+  grid-gap: 200px;
+  justify-content: center;
+  padding-top: 200px;
+  background-image: url('../background.jpg');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
 }
 
 .App-link {

@@ -37,7 +37,9 @@ func saveImageAndHash(imageFile io.Reader) (string, error) {
 func createNewItem(c echo.Context) (Item, error) {
 	var item Item
 	name := c.FormValue("name")
+	fmt.Printf("name%s\n",name)
 	categoryIDStr := c.FormValue("category_id")
+	fmt.Printf("category_id%s\n",categoryIDStr)
 	categoryID, err := strconv.Atoi(categoryIDStr)
 	if err != nil {
 		return item, err
@@ -50,6 +52,7 @@ func createNewItem(c echo.Context) (Item, error) {
 		return item, fmt.Errorf("category_id %d does not exist", categoryID)
 	}
 	image, err := c.FormFile("image")
+	fmt.Printf("category_id%v\n",image)
 	if err != nil {
 		return item, err
 	}
